@@ -124,7 +124,27 @@
 </template>
  <script>
  export default {
-  
+    data() {
+    return {
+      client_id: 'bb2c2365106945cb81942f97c748f3fe',
+      client_secret: 'cdd28fff7bf34c1ba446304040f1ff07'
+    }
+  },
+  methods:{},
+  mounted(){
+      var parameter = {
+        method:'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Basic ' + (this.client_id + ':' + this.client_secret).toString('base64')
+        },
+        body:'grant_type=client_credentials&client_id='+this.client_id + '&client_secret='+ this.client_secret
+      }
+      fetch('https://api.spotify.com/api/token', parameter)
+       .then(result => result.json())
+       .then(data => console.log(data))
+    
+  }
  }
  </script>
 <style scoped>
